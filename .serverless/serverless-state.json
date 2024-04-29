@@ -96,7 +96,13 @@
                           "sqs:GetQueueAttributes"
                         ],
                         "Resource": [
-                          "arn:aws:sqs:us-east-1:255945442255:James-sqs"
+                          "arn:aws:sqs:us-east-1:255945442255:James-sqs",
+                          {
+                            "Fn::GetAtt": [
+                              "JamesQueue",
+                              "Arn"
+                            ]
+                          }
                         ]
                       }
                     ]
@@ -124,7 +130,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "cohort5.deployment",
-                "S3Key": "serverless/james-c5-serverless-i/dev/1714395665154-2024-04-29T13:01:05.154Z/james-c5-serverless-i.zip"
+                "S3Key": "serverless/james-c5-serverless-i/dev/1714398072384-2024-04-29T13:41:12.384Z/james-c5-serverless-i.zip"
               },
               "Handler": "index.firsthandler",
               "Runtime": "nodejs18.x",
@@ -147,7 +153,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "cohort5.deployment",
-                "S3Key": "serverless/james-c5-serverless-i/dev/1714395665154-2024-04-29T13:01:05.154Z/james-c5-serverless-i.zip"
+                "S3Key": "serverless/james-c5-serverless-i/dev/1714398072384-2024-04-29T13:41:12.384Z/james-c5-serverless-i.zip"
               },
               "Handler": "index.secondhandler",
               "Runtime": "nodejs18.x",
@@ -196,6 +202,28 @@
               "FunctionName": {
                 "Fn::GetAtt": [
                   "FirstfuntionLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Enabled": true
+            }
+          },
+          "SecondfunctionEventSourceMappingSQSJamesQueue": {
+            "Type": "AWS::Lambda::EventSourceMapping",
+            "DependsOn": [
+              "IamRoleLambdaExecution"
+            ],
+            "Properties": {
+              "BatchSize": 10,
+              "EventSourceArn": {
+                "Fn::GetAtt": [
+                  "JamesQueue",
+                  "Arn"
+                ]
+              },
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "SecondfunctionLambdaFunction",
                   "Arn"
                 ]
               },
@@ -365,6 +393,12 @@
               }
             },
             "DependsOn": "HttpApiIntegrationSecondfunction"
+          },
+          "JamesQueue": {
+            "Type": "AWS::SQS::Queue",
+            "Properties": {
+              "QueueName": "James-queue"
+            }
           }
         },
         "Outputs": {
@@ -468,6 +502,13 @@
             },
             "resolvedMethod": "POST",
             "resolvedPath": "/james"
+          },
+          {
+            "sqs": {
+              "arn": {
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"IamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][2][\"Resource\"][1]"
+              }
+            }
           }
         ],
         "name": "james-c5-serverless-i-dev-secondfunction",
@@ -478,6 +519,17 @@
         "vpc": {},
         "versionLogicalId": "SecondfunctionLambdaVersionodm7yUMzs9Lkm1reDCeeMPXdDD5nKSAR9XU0BFcNoE0"
       }
+    },
+    "resources": {
+      "Resources": {
+        "JamesQueue": {
+          "Type": "AWS::SQS::Queue",
+          "Properties": {
+            "QueueName": "James-queue"
+          }
+        }
+      },
+      "Outputs": {}
     },
     "configValidationMode": "warn",
     "serviceFilename": "serverless.yml",
@@ -490,6 +542,9 @@
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
       },
+      "resources": {
+        "$ref": "$[\"service\"][\"resources\"]"
+      },
       "plugins": {
         "$ref": "$[\"service\"][\"plugins\"]"
       }
@@ -499,7 +554,7 @@
     "artifact": "/Users/ahtsum/NTU_GitHub/aws-node-http-api-project-3/serverless-api/serverless-api/.serverless/james-c5-serverless-i.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/james-c5-serverless-i/dev/1714395665154-2024-04-29T13:01:05.154Z",
+    "artifactDirectoryName": "serverless/james-c5-serverless-i/dev/1714398072384-2024-04-29T13:41:12.384Z",
     "artifact": "james-c5-serverless-i.zip"
   }
 }

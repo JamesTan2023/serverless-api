@@ -80,7 +80,13 @@
                     "sqs:GetQueueAttributes"
                   ],
                   "Resource": [
-                    "arn:aws:sqs:us-east-1:255945442255:James-sqs"
+                    "arn:aws:sqs:us-east-1:255945442255:James-sqs",
+                    {
+                      "Fn::GetAtt": [
+                        "JamesQueue",
+                        "Arn"
+                      ]
+                    }
                   ]
                 }
               ]
@@ -108,7 +114,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "cohort5.deployment",
-          "S3Key": "serverless/james-c5-serverless-i/dev/1714395665154-2024-04-29T13:01:05.154Z/james-c5-serverless-i.zip"
+          "S3Key": "serverless/james-c5-serverless-i/dev/1714398072384-2024-04-29T13:41:12.384Z/james-c5-serverless-i.zip"
         },
         "Handler": "index.firsthandler",
         "Runtime": "nodejs18.x",
@@ -131,7 +137,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "cohort5.deployment",
-          "S3Key": "serverless/james-c5-serverless-i/dev/1714395665154-2024-04-29T13:01:05.154Z/james-c5-serverless-i.zip"
+          "S3Key": "serverless/james-c5-serverless-i/dev/1714398072384-2024-04-29T13:41:12.384Z/james-c5-serverless-i.zip"
         },
         "Handler": "index.secondhandler",
         "Runtime": "nodejs18.x",
@@ -180,6 +186,28 @@
         "FunctionName": {
           "Fn::GetAtt": [
             "FirstfuntionLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Enabled": true
+      }
+    },
+    "SecondfunctionEventSourceMappingSQSJamesQueue": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "DependsOn": [
+        "IamRoleLambdaExecution"
+      ],
+      "Properties": {
+        "BatchSize": 10,
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "JamesQueue",
+            "Arn"
+          ]
+        },
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "SecondfunctionLambdaFunction",
             "Arn"
           ]
         },
@@ -355,6 +383,12 @@
         }
       },
       "DependsOn": "HttpApiIntegrationSecondfunction"
+    },
+    "JamesQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "QueueName": "James-queue"
+      }
     }
   },
   "Outputs": {

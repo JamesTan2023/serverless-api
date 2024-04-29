@@ -24,6 +24,19 @@ functions:
       - httpApi:
           path: /james
           method: post
+      - sqs:
+          arn:
+            Fn::GetAtt:
+              - JamesQueue
+              - Arn
+
+resources:
+  Resources:
+    JamesQueue:
+      Type: "AWS::SQS::Queue"
+      Properties:
+        QueueName: "James-queue"
+
 
 plugins:
   - serverless-offline

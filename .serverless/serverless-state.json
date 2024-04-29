@@ -7,92 +7,27 @@
     "provider": {
       "name": "aws",
       "runtime": "nodejs18.x",
+      "deploymentBucket": "cohort5.deployment",
       "stage": "dev",
       "region": "us-east-1",
       "versionFunctions": true,
+      "deploymentBucketObject": {
+        "name": "cohort5.deployment"
+      },
       "compiledCloudFormationTemplate": {
         "AWSTemplateFormatVersion": "2010-09-09",
         "Description": "The AWS CloudFormation template for this Serverless application",
         "Resources": {
-          "ServerlessDeploymentBucket": {
-            "Type": "AWS::S3::Bucket",
-            "Properties": {
-              "BucketEncryption": {
-                "ServerSideEncryptionConfiguration": [
-                  {
-                    "ServerSideEncryptionByDefault": {
-                      "SSEAlgorithm": "AES256"
-                    }
-                  }
-                ]
-              }
-            }
-          },
-          "ServerlessDeploymentBucketPolicy": {
-            "Type": "AWS::S3::BucketPolicy",
-            "Properties": {
-              "Bucket": {
-                "Ref": "ServerlessDeploymentBucket"
-              },
-              "PolicyDocument": {
-                "Statement": [
-                  {
-                    "Action": "s3:*",
-                    "Effect": "Deny",
-                    "Principal": "*",
-                    "Resource": [
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:",
-                            {
-                              "Ref": "AWS::Partition"
-                            },
-                            ":s3:::",
-                            {
-                              "Ref": "ServerlessDeploymentBucket"
-                            },
-                            "/*"
-                          ]
-                        ]
-                      },
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:",
-                            {
-                              "Ref": "AWS::Partition"
-                            },
-                            ":s3:::",
-                            {
-                              "Ref": "ServerlessDeploymentBucket"
-                            }
-                          ]
-                        ]
-                      }
-                    ],
-                    "Condition": {
-                      "Bool": {
-                        "aws:SecureTransport": false
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          },
-          "JamesapiLogGroup": {
+          "FirstfuntionLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/james-c5-serverless-i-dev-jamesapi"
+              "LogGroupName": "/aws/lambda/james-c5-serverless-i-dev-firstfuntion"
             }
           },
-          "JamespostLogGroup": {
+          "SecondfunctionLogGroup": {
             "Type": "AWS::Logs::LogGroup",
             "Properties": {
-              "LogGroupName": "/aws/lambda/james-c5-serverless-i-dev-jamespost"
+              "LogGroupName": "/aws/lambda/james-c5-serverless-i-dev-secondfunction"
             }
           },
           "IamRoleLambdaExecution": {
@@ -173,18 +108,16 @@
               }
             }
           },
-          "JamesapiLambdaFunction": {
+          "FirstfuntionLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
-                "S3Bucket": {
-                  "Ref": "ServerlessDeploymentBucket"
-                },
-                "S3Key": "serverless/james-c5-serverless-i/dev/1714020035726-2024-04-25T04:40:35.726Z/james-c5-serverless-i.zip"
+                "S3Bucket": "cohort5.deployment",
+                "S3Key": "serverless/james-c5-serverless-i/dev/1714392057957-2024-04-29T12:00:57.957Z/james-c5-serverless-i.zip"
               },
-              "Handler": "index.james",
+              "Handler": "index.firsthandler",
               "Runtime": "nodejs18.x",
-              "FunctionName": "james-c5-serverless-i-dev-jamesapi",
+              "FunctionName": "james-c5-serverless-i-dev-firstfuntion",
               "MemorySize": 1024,
               "Timeout": 6,
               "Role": {
@@ -195,21 +128,19 @@
               }
             },
             "DependsOn": [
-              "JamesapiLogGroup"
+              "FirstfuntionLogGroup"
             ]
           },
-          "JamespostLambdaFunction": {
+          "SecondfunctionLambdaFunction": {
             "Type": "AWS::Lambda::Function",
             "Properties": {
               "Code": {
-                "S3Bucket": {
-                  "Ref": "ServerlessDeploymentBucket"
-                },
-                "S3Key": "serverless/james-c5-serverless-i/dev/1714020035726-2024-04-25T04:40:35.726Z/james-c5-serverless-i.zip"
+                "S3Bucket": "cohort5.deployment",
+                "S3Key": "serverless/james-c5-serverless-i/dev/1714392057957-2024-04-29T12:00:57.957Z/james-c5-serverless-i.zip"
               },
-              "Handler": "index.jamespost",
+              "Handler": "index.secondhandler",
               "Runtime": "nodejs18.x",
-              "FunctionName": "james-c5-serverless-i-dev-jamespost",
+              "FunctionName": "james-c5-serverless-i-dev-secondfunction",
               "MemorySize": 1024,
               "Timeout": 6,
               "Role": {
@@ -220,27 +151,27 @@
               }
             },
             "DependsOn": [
-              "JamespostLogGroup"
+              "SecondfunctionLogGroup"
             ]
           },
-          "JamesapiLambdaVersion16o3J9exN5mENB5h18Yxu5W6zQ8fiOv31djDvryveM": {
+          "FirstfuntionLambdaVersionqQVPgdcSt4N8nJzUCcqut3JaDApv5KJG13fiwl47MI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
-                "Ref": "JamesapiLambdaFunction"
+                "Ref": "FirstfuntionLambdaFunction"
               },
-              "CodeSha256": "IDicbp7mLsM2fKowVj4xcjXLO23Hv7cNkMPC3agmPE4="
+              "CodeSha256": "gpO9rOLOulMLB1N3tmb+vEdPlUk6IEEsaSBHwwXxMKY="
             }
           },
-          "JamespostLambdaVersionxIEuUNLiMtD5s3r5WM6KEPAp8e1UgIXwZNiz2CjYtPY": {
+          "SecondfunctionLambdaVersionTZIIza0QAc3PzNHO9VRvTeAX3FsEKPTx1GGXEqQdWI": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
-                "Ref": "JamespostLambdaFunction"
+                "Ref": "SecondfunctionLambdaFunction"
               },
-              "CodeSha256": "IDicbp7mLsM2fKowVj4xcjXLO23Hv7cNkMPC3agmPE4="
+              "CodeSha256": "gpO9rOLOulMLB1N3tmb+vEdPlUk6IEEsaSBHwwXxMKY="
             }
           },
           "HttpApi": {
@@ -263,12 +194,12 @@
               }
             }
           },
-          "JamesapiLambdaPermissionHttpApi": {
+          "FirstfuntionLambdaPermissionHttpApi": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
                 "Fn::GetAtt": [
-                  "JamesapiLambdaFunction",
+                  "FirstfuntionLambdaFunction",
                   "Arn"
                 ]
               },
@@ -300,7 +231,7 @@
               }
             }
           },
-          "HttpApiIntegrationJamesapi": {
+          "HttpApiIntegrationFirstfuntion": {
             "Type": "AWS::ApiGatewayV2::Integration",
             "Properties": {
               "ApiId": {
@@ -308,39 +239,39 @@
               },
               "IntegrationType": "AWS_PROXY",
               "IntegrationUri": {
-                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"JamesapiLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"FirstfuntionLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
               },
               "PayloadFormatVersion": "2.0",
               "TimeoutInMillis": 30000
             }
           },
-          "HttpApiRouteGet": {
+          "HttpApiRouteGetJames": {
             "Type": "AWS::ApiGatewayV2::Route",
             "Properties": {
               "ApiId": {
                 "Ref": "HttpApi"
               },
-              "RouteKey": "GET /",
+              "RouteKey": "GET /james",
               "Target": {
                 "Fn::Join": [
                   "/",
                   [
                     "integrations",
                     {
-                      "Ref": "HttpApiIntegrationJamesapi"
+                      "Ref": "HttpApiIntegrationFirstfuntion"
                     }
                   ]
                 ]
               }
             },
-            "DependsOn": "HttpApiIntegrationJamesapi"
+            "DependsOn": "HttpApiIntegrationFirstfuntion"
           },
-          "JamespostLambdaPermissionHttpApi": {
+          "SecondfunctionLambdaPermissionHttpApi": {
             "Type": "AWS::Lambda::Permission",
             "Properties": {
               "FunctionName": {
                 "Fn::GetAtt": [
-                  "JamespostLambdaFunction",
+                  "SecondfunctionLambdaFunction",
                   "Arn"
                 ]
               },
@@ -372,7 +303,7 @@
               }
             }
           },
-          "HttpApiIntegrationJamespost": {
+          "HttpApiIntegrationSecondfunction": {
             "Type": "AWS::ApiGatewayV2::Integration",
             "Properties": {
               "ApiId": {
@@ -380,7 +311,7 @@
               },
               "IntegrationType": "AWS_PROXY",
               "IntegrationUri": {
-                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"JamespostLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
+                "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"SecondfunctionLambdaPermissionHttpApi\"][\"Properties\"][\"FunctionName\"]"
               },
               "PayloadFormatVersion": "2.0",
               "TimeoutInMillis": 30000
@@ -399,40 +330,38 @@
                   [
                     "integrations",
                     {
-                      "Ref": "HttpApiIntegrationJamespost"
+                      "Ref": "HttpApiIntegrationSecondfunction"
                     }
                   ]
                 ]
               }
             },
-            "DependsOn": "HttpApiIntegrationJamespost"
+            "DependsOn": "HttpApiIntegrationSecondfunction"
           }
         },
         "Outputs": {
           "ServerlessDeploymentBucketName": {
-            "Value": {
-              "Ref": "ServerlessDeploymentBucket"
-            },
+            "Value": "cohort5.deployment",
             "Export": {
               "Name": "sls-james-c5-serverless-i-dev-ServerlessDeploymentBucketName"
             }
           },
-          "JamesapiLambdaFunctionQualifiedArn": {
+          "FirstfuntionLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "JamesapiLambdaVersion16o3J9exN5mENB5h18Yxu5W6zQ8fiOv31djDvryveM"
+              "Ref": "FirstfuntionLambdaVersionqQVPgdcSt4N8nJzUCcqut3JaDApv5KJG13fiwl47MI"
             },
             "Export": {
-              "Name": "sls-james-c5-serverless-i-dev-JamesapiLambdaFunctionQualifiedArn"
+              "Name": "sls-james-c5-serverless-i-dev-FirstfuntionLambdaFunctionQualifiedArn"
             }
           },
-          "JamespostLambdaFunctionQualifiedArn": {
+          "SecondfunctionLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "JamespostLambdaVersionxIEuUNLiMtD5s3r5WM6KEPAp8e1UgIXwZNiz2CjYtPY"
+              "Ref": "SecondfunctionLambdaVersionTZIIza0QAc3PzNHO9VRvTeAX3FsEKPTx1GGXEqQdWI"
             },
             "Export": {
-              "Name": "sls-james-c5-serverless-i-dev-JamespostLambdaFunctionQualifiedArn"
+              "Name": "sls-james-c5-serverless-i-dev-SecondfunctionLambdaFunctionQualifiedArn"
             }
           },
           "HttpApiId": {
@@ -471,88 +400,6 @@
           }
         }
       },
-      "coreCloudFormationTemplate": {
-        "AWSTemplateFormatVersion": "2010-09-09",
-        "Description": "The AWS CloudFormation template for this Serverless application",
-        "Resources": {
-          "ServerlessDeploymentBucket": {
-            "Type": "AWS::S3::Bucket",
-            "Properties": {
-              "BucketEncryption": {
-                "ServerSideEncryptionConfiguration": [
-                  {
-                    "ServerSideEncryptionByDefault": {
-                      "SSEAlgorithm": "AES256"
-                    }
-                  }
-                ]
-              }
-            }
-          },
-          "ServerlessDeploymentBucketPolicy": {
-            "Type": "AWS::S3::BucketPolicy",
-            "Properties": {
-              "Bucket": {
-                "Ref": "ServerlessDeploymentBucket"
-              },
-              "PolicyDocument": {
-                "Statement": [
-                  {
-                    "Action": "s3:*",
-                    "Effect": "Deny",
-                    "Principal": "*",
-                    "Resource": [
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:",
-                            {
-                              "Ref": "AWS::Partition"
-                            },
-                            ":s3:::",
-                            {
-                              "Ref": "ServerlessDeploymentBucket"
-                            },
-                            "/*"
-                          ]
-                        ]
-                      },
-                      {
-                        "Fn::Join": [
-                          "",
-                          [
-                            "arn:",
-                            {
-                              "Ref": "AWS::Partition"
-                            },
-                            ":s3:::",
-                            {
-                              "Ref": "ServerlessDeploymentBucket"
-                            }
-                          ]
-                        ]
-                      }
-                    ],
-                    "Condition": {
-                      "Bool": {
-                        "aws:SecureTransport": false
-                      }
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        },
-        "Outputs": {
-          "ServerlessDeploymentBucketName": {
-            "Value": {
-              "Ref": "ServerlessDeploymentBucket"
-            }
-          }
-        }
-      },
       "vpc": {}
     },
     "plugins": [
@@ -560,28 +407,28 @@
     ],
     "pluginsData": {},
     "functions": {
-      "jamesapi": {
-        "handler": "index.james",
+      "firstfuntion": {
+        "handler": "index.firsthandler",
         "events": [
           {
             "httpApi": {
-              "path": "/",
+              "path": "/james",
               "method": "get"
             },
             "resolvedMethod": "GET",
-            "resolvedPath": "/"
+            "resolvedPath": "/james"
           }
         ],
-        "name": "james-c5-serverless-i-dev-jamesapi",
+        "name": "james-c5-serverless-i-dev-firstfuntion",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "JamesapiLambdaVersion16o3J9exN5mENB5h18Yxu5W6zQ8fiOv31djDvryveM"
+        "versionLogicalId": "FirstfuntionLambdaVersionqQVPgdcSt4N8nJzUCcqut3JaDApv5KJG13fiwl47MI"
       },
-      "jamespost": {
-        "handler": "index.jamespost",
+      "secondfunction": {
+        "handler": "index.secondhandler",
         "events": [
           {
             "httpApi": {
@@ -592,13 +439,13 @@
             "resolvedPath": "/james"
           }
         ],
-        "name": "james-c5-serverless-i-dev-jamespost",
+        "name": "james-c5-serverless-i-dev-secondfunction",
         "package": {},
         "memory": 1024,
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "JamespostLambdaVersionxIEuUNLiMtD5s3r5WM6KEPAp8e1UgIXwZNiz2CjYtPY"
+        "versionLogicalId": "SecondfunctionLambdaVersionTZIIza0QAc3PzNHO9VRvTeAX3FsEKPTx1GGXEqQdWI"
       }
     },
     "configValidationMode": "warn",
@@ -621,7 +468,7 @@
     "artifact": "/Users/ahtsum/NTU_GitHub/aws-node-http-api-project-3/serverless-api/serverless-api/.serverless/james-c5-serverless-i.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/james-c5-serverless-i/dev/1714020035726-2024-04-25T04:40:35.726Z",
+    "artifactDirectoryName": "serverless/james-c5-serverless-i/dev/1714392057957-2024-04-29T12:00:57.957Z",
     "artifact": "james-c5-serverless-i.zip"
   }
 }

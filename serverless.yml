@@ -6,15 +6,15 @@ provider:
   runtime: nodejs18.x
 
 functions:
-  jamesapi:
-    handler: index.james
+  firstfuntion:
+    handler: index.firsthandler
     events:
       - httpApi:
-          path: /
+          path: /james
           method: get
 
-  jamespost:
-    handler: index.jamespost
+  secondfunction:
+    handler: index.secondhandler
     events:
       - httpApi:
           path: /james

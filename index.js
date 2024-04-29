@@ -1,4 +1,5 @@
-module.exports.james = async (event) => {
+module.exports.firsthandler = async (event) => {
+  console.log(event.body)
   return {
     statusCode: 200,
     body: JSON.stringify(
@@ -11,7 +12,8 @@ module.exports.james = async (event) => {
   };
 };
 
-module.exports.jamespost = async (event) => {
+module.exports.secondhandler = async (event) => {
+  console.log(event.body)
   return {
     statusCode: 200,
     body: JSON.stringify(

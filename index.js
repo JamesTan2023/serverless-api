@@ -1,5 +1,6 @@
 module.exports.firsthandler = async (event) => {
-  console.log(event.body)
+  console.log('james')
+  console.log(event)
   return {
     statusCode: 200,
     body: JSON.stringify(

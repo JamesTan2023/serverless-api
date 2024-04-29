@@ -113,7 +113,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "cohort5.deployment",
-                "S3Key": "serverless/james-c5-serverless-i/dev/1714392057957-2024-04-29T12:00:57.957Z/james-c5-serverless-i.zip"
+                "S3Key": "serverless/james-c5-serverless-i/dev/1714394983873-2024-04-29T12:49:43.873Z/james-c5-serverless-i.zip"
               },
               "Handler": "index.firsthandler",
               "Runtime": "nodejs18.x",
@@ -136,7 +136,7 @@
             "Properties": {
               "Code": {
                 "S3Bucket": "cohort5.deployment",
-                "S3Key": "serverless/james-c5-serverless-i/dev/1714392057957-2024-04-29T12:00:57.957Z/james-c5-serverless-i.zip"
+                "S3Key": "serverless/james-c5-serverless-i/dev/1714394983873-2024-04-29T12:49:43.873Z/james-c5-serverless-i.zip"
               },
               "Handler": "index.secondhandler",
               "Runtime": "nodejs18.x",
@@ -154,24 +154,24 @@
               "SecondfunctionLogGroup"
             ]
           },
-          "FirstfuntionLambdaVersionqQVPgdcSt4N8nJzUCcqut3JaDApv5KJG13fiwl47MI": {
+          "FirstfuntionLambdaVersionUJt6589HOaIIhkKkvK47CbfflmDX31DTwzHYfLFlPY": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "FirstfuntionLambdaFunction"
               },
-              "CodeSha256": "gpO9rOLOulMLB1N3tmb+vEdPlUk6IEEsaSBHwwXxMKY="
+              "CodeSha256": "c/d1ELWUhAaCwZU3PPr4ruLAEmMpB0D4FY3obdHOBVo="
             }
           },
-          "SecondfunctionLambdaVersionTZIIza0QAc3PzNHO9VRvTeAX3FsEKPTx1GGXEqQdWI": {
+          "SecondfunctionLambdaVersionodm7yUMzs9Lkm1reDCeeMPXdDD5nKSAR9XU0BFcNoE0": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "SecondfunctionLambdaFunction"
               },
-              "CodeSha256": "gpO9rOLOulMLB1N3tmb+vEdPlUk6IEEsaSBHwwXxMKY="
+              "CodeSha256": "c/d1ELWUhAaCwZU3PPr4ruLAEmMpB0D4FY3obdHOBVo="
             }
           },
           "HttpApi": {
@@ -349,7 +349,7 @@
           "FirstfuntionLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "FirstfuntionLambdaVersionqQVPgdcSt4N8nJzUCcqut3JaDApv5KJG13fiwl47MI"
+              "Ref": "FirstfuntionLambdaVersionUJt6589HOaIIhkKkvK47CbfflmDX31DTwzHYfLFlPY"
             },
             "Export": {
               "Name": "sls-james-c5-serverless-i-dev-FirstfuntionLambdaFunctionQualifiedArn"
@@ -358,7 +358,7 @@
           "SecondfunctionLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "SecondfunctionLambdaVersionTZIIza0QAc3PzNHO9VRvTeAX3FsEKPTx1GGXEqQdWI"
+              "Ref": "SecondfunctionLambdaVersionodm7yUMzs9Lkm1reDCeeMPXdDD5nKSAR9XU0BFcNoE0"
             },
             "Export": {
               "Name": "sls-james-c5-serverless-i-dev-SecondfunctionLambdaFunctionQualifiedArn"
@@ -425,7 +425,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "FirstfuntionLambdaVersionqQVPgdcSt4N8nJzUCcqut3JaDApv5KJG13fiwl47MI"
+        "versionLogicalId": "FirstfuntionLambdaVersionUJt6589HOaIIhkKkvK47CbfflmDX31DTwzHYfLFlPY"
       },
       "secondfunction": {
         "handler": "index.secondhandler",
@@ -445,7 +445,7 @@
         "timeout": 6,
         "runtime": "nodejs18.x",
         "vpc": {},
-        "versionLogicalId": "SecondfunctionLambdaVersionTZIIza0QAc3PzNHO9VRvTeAX3FsEKPTx1GGXEqQdWI"
+        "versionLogicalId": "SecondfunctionLambdaVersionodm7yUMzs9Lkm1reDCeeMPXdDD5nKSAR9XU0BFcNoE0"
       }
     },
     "configValidationMode": "warn",
@@ -468,7 +468,7 @@
     "artifact": "/Users/ahtsum/NTU_GitHub/aws-node-http-api-project-3/serverless-api/serverless-api/.serverless/james-c5-serverless-i.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/james-c5-serverless-i/dev/1714392057957-2024-04-29T12:00:57.957Z",
+    "artifactDirectoryName": "serverless/james-c5-serverless-i/dev/1714394983873-2024-04-29T12:49:43.873Z",
     "artifact": "james-c5-serverless-i.zip"
   }
 }

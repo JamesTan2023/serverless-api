@@ -71,6 +71,17 @@
                       "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/james-c5-serverless-i-dev*:*:*"
                     }
                   ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "sqs:ReceiveMessage",
+                    "sqs:DeleteMessage",
+                    "sqs:GetQueueAttributes"
+                  ],
+                  "Resource": [
+                    "arn:aws:sqs:us-east-1:255945442255:James-sqs"
+                  ]
                 }
               ]
             }
@@ -97,7 +108,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "cohort5.deployment",
-          "S3Key": "serverless/james-c5-serverless-i/dev/1714394983873-2024-04-29T12:49:43.873Z/james-c5-serverless-i.zip"
+          "S3Key": "serverless/james-c5-serverless-i/dev/1714395665154-2024-04-29T13:01:05.154Z/james-c5-serverless-i.zip"
         },
         "Handler": "index.firsthandler",
         "Runtime": "nodejs18.x",
@@ -120,7 +131,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": "cohort5.deployment",
-          "S3Key": "serverless/james-c5-serverless-i/dev/1714394983873-2024-04-29T12:49:43.873Z/james-c5-serverless-i.zip"
+          "S3Key": "serverless/james-c5-serverless-i/dev/1714395665154-2024-04-29T13:01:05.154Z/james-c5-serverless-i.zip"
         },
         "Handler": "index.secondhandler",
         "Runtime": "nodejs18.x",
@@ -156,6 +167,23 @@
           "Ref": "SecondfunctionLambdaFunction"
         },
         "CodeSha256": "c/d1ELWUhAaCwZU3PPr4ruLAEmMpB0D4FY3obdHOBVo="
+      }
+    },
+    "FirstfuntionEventSourceMappingSQSJamessqs": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "DependsOn": [
+        "IamRoleLambdaExecution"
+      ],
+      "Properties": {
+        "BatchSize": 10,
+        "EventSourceArn": "arn:aws:sqs:us-east-1:255945442255:James-sqs",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "FirstfuntionLambdaFunction",
+            "Arn"
+          ]
+        },
+        "Enabled": true
       }
     },
     "HttpApi": {

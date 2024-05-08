@@ -1,0 +1,23 @@
+{
+  "name": "serverless-api",
+"version": "1.0.1",
+"description": "",
+"main": "index.js",
+"scripts": {
+  "test": "jest"
+},
+"repository": {
+  "type": "git",
+  "url": "https://github.com/JamesTan2023/serverless-api.git"
+},
+"author": "",
+"license": "ISC",
+"bugs": {
+  "url": "https://github.com/JamesTan2023/serverless-api/issues"
+},
+"homepage": "https://github.com/JamesTan2023/serverless-api#readme",
+"devDependencies": {
+  "jest": "^29.7.0",
+  "serverless-offline": "^13.4.0"
+  }
+}

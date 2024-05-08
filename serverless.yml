@@ -15,9 +15,7 @@ functions:
       - httpApi:
           path: /james
           method: get
-      - sqs:
-          arn:aws:sqs:us-east-1:255945442255:James-sqs
-
+      
   secondfunction:
     handler: index.secondhandler
     events:
